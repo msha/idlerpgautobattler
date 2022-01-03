@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+{% if session.username %}
+<h1>logged in 😎</h1>
+{% else %}
+<h1>not logged in 😥</h1>
+{% endif %}
+{% endblock %}
