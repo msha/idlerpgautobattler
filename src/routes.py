@@ -8,6 +8,7 @@ from db import db
 
 from repositories.user.user_repository import UserRepository
 from repositories.user import views
+from repositories.user import models
 
 from repositories.character import views
 
