@@ -1,9 +1,15 @@
 {% extends "layout.html" %}
 {% block head %}
+<script src="{{ url_for('static', filename='base.js') }}"></script>
 {% endblock %}
 {% block content %}
 {% if session.username %}
 <h1>logged in 😎</h1>
+<form>
+    <label>Character name</label>
+    <input id="name" type="Text" />
+    <input type="submit" value="Add" />
+</form>
 {% else %}
 <h1>not logged in 😥</h1>
 {% endif %}
