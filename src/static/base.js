@@ -17,7 +17,7 @@ function sendData(e) {
         .then(res => res.json())
         .then(data => {
             const { result } = data;
-            console.log(data);
+            document.querySelector("#dude").innerHTML = data.name;
         })
         .catch(err => console.log(err));
 };

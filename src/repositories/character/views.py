@@ -11,4 +11,5 @@ def level_up():
 
 @app.route("/create_dude")
 def create_character():
+    
     return render_template("index.html")

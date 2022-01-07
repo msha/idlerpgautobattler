@@ -25,7 +25,8 @@ def index():
 
 @app.route("/add", methods=["POST"])
 def add():
-    data = {"name": ":D"}
+    print(request.__dict__)
+    data = {"name": ":DD"}
     return jsonify(data)
 
 
