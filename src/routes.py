@@ -23,13 +23,6 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/add", methods=["POST"])
-def add():
-    print(request.__dict__)
-    data = {"name": ":DD"}
-    return jsonify(data)
-
-
 login_manager = LoginManager()
 login_manager.init_app(app)
 

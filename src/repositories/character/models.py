@@ -11,7 +11,9 @@ class Character(db.Model):
     character_name = db.Column(db.String(144))
     character_level = db.Column(db.Integer)
 
-    def __init__(self) -> None:
+    def __init__(self, owner: int, name: str) -> None:
+        self.character_owner = owner
+        self.character_name = name
         self.character_level = 0
 
     def set_name(self, name) -> None:
