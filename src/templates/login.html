@@ -5,6 +5,7 @@
 <p>You are logged in as {{ session.username }}</p>
 <a href="/logout">Log out</a>
 {% else %}
+<div class="normal-box login">
 <form action="/log" method="POST">
 Username: <br>
 <input type="text" name="username">
@@ -17,6 +18,7 @@ Password: <br>
 <br>
 <a href="/create">Create Account</a>
 <br>
+<div>
 {% endif %}
 {% if error %}
 {{ error }}

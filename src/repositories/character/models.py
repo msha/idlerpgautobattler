@@ -1,3 +1,6 @@
+import json
+
+import jsonpickle
 from db import db
 
 
@@ -24,3 +27,16 @@ class Character(db.Model):
 
     def get_level(self) -> int:
         return self.character_level
+
+    def to_json(self):
+        data = {
+            "character_id": self.character_id,
+            "character_owner": self.character_owner,
+            "character_name": self.character_name,
+            "character_level": "asd",
+        }
+        # :D
+        data = json.loads(jsonpickle.encode(self))
+        data.pop("_sa_instance_state")
+        data = jsonpickle.encode(data)
+        return data

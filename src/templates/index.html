@@ -2,7 +2,11 @@
 {% block head %}
 <script src="{{ url_for('static', filename='base.js') }}"></script>
 {% endblock %}
+{% block navigation%}
+
+{% endblock %}
 {% block content %}
+<div class="normal-box main-content">
 {% if session.username %}
 <h1>logged in 😎</h1>
 <form>
@@ -14,4 +18,5 @@
 {% else %}
 <h1>not logged in 😥</h1>
 {% endif %}
+</div>
 {% endblock %}

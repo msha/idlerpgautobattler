@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <title>Create Account</title>
+<div class="normal-box login">
 <form action="/create_account" method="POST">
 Username: <br>
 <input type="text" name="username" value="{{ user }}" oninvalid="alert('Username must be between 2-20 characters.');" pattern=".{2,20}" required>
@@ -13,6 +14,7 @@ Password again: <br>
 <br><br>
 <input type="submit" id="submitCreate" value="Create Account">
 </form>
+</div
 {% if error %}
 {{ error }}
 {% endif %}

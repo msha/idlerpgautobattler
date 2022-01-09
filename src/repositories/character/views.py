@@ -1,3 +1,5 @@
+import json
+
 from app import app
 from db import db
 from flask import abort, jsonify, redirect, render_template, request, session
@@ -16,6 +18,17 @@ def create_character():
     db.session.add(new_dude)
     db.session.commit()
     return render_template("index.html")
+
+
+@app.route("/get_dudes", methods=["GET"])
+def get_characters():
+    sql = Character.query.filter(Character.character_owner == session["user_id"]).all()
+    data = {}
+    d = []
+    for row in sql:
+        data = json.loads(row.to_json())
+        d.append(data)
+    return json.dumps(d)
 
 
 @app.route("/add", methods=["POST"])
