@@ -2,7 +2,6 @@
 from os import getenv, urandom
 from secrets import token_hex
 
-import socketio
 from flask import abort, jsonify, redirect, render_template, request, session
 from flask_login import LoginManager
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -13,9 +12,6 @@ from repositories.character import views
 from repositories.user import models, views
 from repositories.user.models import Accounts
 from repositories.user.user_repository import UserRepository
-
-sio = socketio.Client()
-
 
 app.secret_key = urandom(32)
 

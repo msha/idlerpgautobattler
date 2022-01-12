@@ -1,8 +1,9 @@
 import json
 
-from app import app
+from app import app, socketio
 from db import db
 from flask import abort, jsonify, redirect, render_template, request, session
+from flask_socketio import send
 from repositories.character.models import Character
 
 
@@ -29,6 +30,11 @@ def get_characters():
         data = json.loads(row.to_json())
         d.append(data)
     return json.dumps(d)
+
+
+@socketio.on("message")
+def handleMessage(msg):
+    send(get_characters(), broadcast=True)
 
 
 @app.route("/add", methods=["POST"])
