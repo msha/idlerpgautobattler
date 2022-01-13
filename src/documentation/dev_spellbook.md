@@ -1,3 +1,0 @@
-- Reset dev server: `docker-compose down && docker-compose build && docker-compose up` 
-- Reset dev server and clean database: `docker-compose down -v && docker-compose build && docker-compose up`
-- Access the database: `docker exec -it game-db psql --user user --password game-db`.

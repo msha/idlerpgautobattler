@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 <div class="normal-box main-content">
-{% if session.username %}
+{% if current_user.is_authenticated %}
 <h1>logged in 😎</h1>
 <form>
     <label>Character name</label>

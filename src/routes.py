@@ -1,10 +1,8 @@
 """Module containing all routes of the server"""
 from os import getenv, urandom
-from secrets import token_hex
 
 from flask import abort, jsonify, redirect, render_template, request, session
 from flask_login import LoginManager
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import app
 from db import db
@@ -26,7 +24,7 @@ def index():
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-login_manager.login_view = "login_form"
+login_manager.login_view = "login"
 login_manager.login_message = "Please login to the service"
 
 

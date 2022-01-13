@@ -1,29 +1,28 @@
-from secrets import token_hex
-
 from app import app
 from db import db
-from flask import abort, redirect, render_template, request, session
+from flask import abort, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
+from repositories.user.models import Accounts
 from repositories.user.user_repository import UserRepository
 from werkzeug.security import check_password_hash, generate_password_hash
 
 user_repository = UserRepository(db)
 
 
-def update_session(username, route="/"):
-    session["user_id"] = user_repository.find_user_id(username)
-    session["username"] = username
-    session["csrf_token"] = token_hex(16)
-    return redirect(route)
-
-
 @app.route("/log", methods=["POST"])
 def log():
-    username = request.form["username"]
-    password = request.form["password"]
-    hash_value = user_repository.find_password(username)
+    post_username = request.form["username"].strip()
+    post_password = request.form["password"].strip()
+
+    user = Accounts.query.filter_by(username=post_username).first()
+    hash_value = user_repository.find_password(post_username)
+    if not user:
+        return render_template("login.html", error="user not found")
     if hash_value is not None:
-        if check_password_hash(hash_value[0], password):
-            return update_session(username)
+        if check_password_hash(hash_value[0], post_password):
+            login_user(user)
+            print("login successful")
+            return render_template("index.html")
     return render_template("login.html", error="Username and password not matching")
 
 
@@ -34,21 +33,25 @@ def login():
 
 @app.route("/create_account", methods=["POST"])
 def create_account():
-    username = request.form["username"]
-    password = request.form["password"]
-    password_confirm = request.form["passwordConfirm"]
+    post_username = request.form["username"].strip()
+    post_password = request.form["password"].strip()
+    post_password_confirm = request.form["passwordConfirm"].strip()
 
-    user_id = user_repository.find_user_id(username)
+    user_id = user_repository.find_user_id(post_username)
     if user_id is not None:
-        return render_template("create.html", error="Username taken", user=username)
-    if password != password_confirm:
         return render_template(
-            "create.html", error="Passwords not identical", user=username
+            "create.html", error="Username taken", user=post_username
+        )
+    if post_password != post_password_confirm:
+        return render_template(
+            "create.html", error="Passwords not identical", user=post_username
         )
 
-    password = generate_password_hash(password_confirm)
-    user_repository.insert_user(username, password)
-    return update_session(username)
+    post_password = generate_password_hash(post_password_confirm)
+    user_repository.insert_user(post_username, post_password)
+    user = Accounts.query.filter_by(username=post_username).first()
+    login_user(user)
+    return render_template("index.html")
 
 
 @app.route("/register")
@@ -57,11 +60,7 @@ def register_account():
 
 
 @app.route("/logout")
+@login_required
 def logout():
-    try:
-        del session["user_id"]
-        del session["username"]
-        del session["csrf_token"]
-    except KeyError:
-        pass
+    logout_user()
     return redirect("/")

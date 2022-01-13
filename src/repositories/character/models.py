@@ -29,7 +29,6 @@ class Character(db.Model):
         return self.character_level
 
     def to_json(self):
-        # :D
         data = json.loads(jsonpickle.encode(self))
         data.pop("_sa_instance_state")
         data = jsonpickle.encode(data)

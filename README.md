@@ -1,3 +1,3 @@
 # idlerpgautobattler
 
-A test project for an Idle RPG game with Autobattler elements
+A test project for an Idle RPG Game with Autobattler elements
