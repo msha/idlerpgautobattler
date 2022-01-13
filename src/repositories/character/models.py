@@ -6,7 +6,8 @@ from db import db
 
 class Character(db.Model):
 
-    __tablename = "character"
+    __tablename__ = "character"
+    
     character_id = db.Column(db.Integer, primary_key=True)
     character_owner = db.Column(
         db.Integer, db.ForeignKey("accounts.id"), nullable=False

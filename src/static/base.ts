@@ -33,7 +33,7 @@ function getDudes(dudes) {
             document.querySelector("#dude").innerHTML = ''
             Object.entries(work).forEach(element => {
                 let char = element[1];
-                document.querySelector("#dude").innerHTML += element[1].character_name + '<br>'; 
+                document.querySelector("#dude").innerHTML += char.character_name +'       level: '+  char.character_level+ '<br>'; 
             });
 
 }
