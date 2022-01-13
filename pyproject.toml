@@ -16,6 +16,7 @@ flask-login = "^0.5.0"
 jsonpickle = "^2.0.0"
 Flask-SocketIO = "^5.1.1"
 pylint = "^2.12.2"
+Flask-APScheduler = "^1.12.3"
 
 [tool.poetry.dev-dependencies]
 invoke = "^1.6.0"

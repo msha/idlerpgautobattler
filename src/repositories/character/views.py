@@ -1,11 +1,23 @@
+import functools
 import json
 
-from app import app, socketio
+from app import app, cron, socketio
 from db import db
 from flask import abort, jsonify, redirect, render_template, request, session
 from flask_login import current_user
-from flask_socketio import send
+from flask_socketio import disconnect, send
 from repositories.character.models import Character
+
+
+def authenticated_only(f):
+    @functools.wraps(f)
+    def wrapped(*args, **kwargs):
+        if not current_user.is_authenticated:
+            disconnect()
+        else:
+            return f(*args, **kwargs)
+
+    return wrapped
 
 
 @app.route("/level_up")
@@ -34,7 +46,9 @@ def get_characters():
 
 
 @socketio.on("message")
+@authenticated_only
 def handleMessage(msg):
+    socketio.sleep(0.05)
     send(get_characters(), broadcast=True)
 
 

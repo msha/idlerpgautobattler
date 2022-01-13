@@ -32,6 +32,7 @@ function getDudes(dudes) {
     let work = JSON.parse(dudes);
             document.querySelector("#dude").innerHTML = ''
             Object.entries(work).forEach(element => {
+                let char = element[1];
                 document.querySelector("#dude").innerHTML += element[1].character_name + '<br>'; 
             });
 

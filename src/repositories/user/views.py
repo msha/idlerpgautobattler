@@ -2,6 +2,7 @@ from app import app
 from db import db
 from flask import abort, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
+from flask_socketio import disconnect
 from repositories.user.models import Accounts
 from repositories.user.user_repository import UserRepository
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -20,7 +21,7 @@ def log():
         return render_template("login.html", error="user not found")
     if hash_value is not None:
         if check_password_hash(hash_value[0], post_password):
-            login_user(user)
+            login_user(user, remember=True)
             print("login successful")
             return render_template("index.html")
     return render_template("login.html", error="Username and password not matching")
