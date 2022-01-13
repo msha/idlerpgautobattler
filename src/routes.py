@@ -2,7 +2,7 @@
 from os import getenv, urandom
 
 from flask import abort, jsonify, redirect, render_template, request, session
-from flask_login import LoginManager
+from flask_login import LoginManager, current_user
 
 from app import app
 from db import db
@@ -18,13 +18,15 @@ user_repository = UserRepository(db)
 
 @app.route("/")
 def index():
+    if not current_user.is_authenticated:
+        return render_template("login.html")
     return render_template("index.html")
 
 
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-login_manager.login_view = "login"
+login_manager.login_view = "login.html"
 login_manager.login_message = "Please login to the service"
 
 

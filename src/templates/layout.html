@@ -13,7 +13,7 @@
 <div class="back">
 		<nav class="navbar navbar-expand-sm navbar-light">
 			<ul class="navbar-nav">
-				{% if session.username %}
+				{% if current_user.is_authenticated %}
 				<li class="nav-item">
 					<a class="nav-link" href="/logout">Log out</a>
 				</li>
