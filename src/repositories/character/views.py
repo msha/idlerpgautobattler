@@ -20,9 +20,11 @@ def authenticated_only(f):
     return wrapped
 
 
-@app.route("/level_up")
+@app.route("/level_up/<character_id>", methods=["POST"])
 def level_up():
-    return render_template("index.html")
+    req = request.get_json()
+    print(req)
+    return "yep", 200
 
 
 @app.route("/create_dude", methods=["POST"])

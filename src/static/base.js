@@ -27,6 +27,9 @@ function sendData(e) {
         .catch(err => console.log(err));
 }
 ;
+function levelup(e) {
+    console.log("sup");
+}
 function getDudes(dudes) {
     let work = JSON.parse(dudes);
     let dude = document.querySelector("#dude");
@@ -35,7 +38,14 @@ function getDudes(dudes) {
         Object.entries(work).forEach((element) => {
             let char = element[1];
             if (dude !== null) {
-                dude.innerHTML += char.character_name + '       level: ' + char.character_level + '<br>';
+                dude.innerHTML += char.character_name + '       level: ' + char.character_level +
+                    '<button  type="level_up" value="Add" id="dude_' + char.character_id + '" />LVLUP!</button>' +
+                    '<br>';
+                let button = document.querySelector('#dude_' + char.character_id + '');
+                button.addEventListener('click', function (e) {
+                    console.log("derp");
+                    levelup(e.target);
+                });
             }
         });
     }
